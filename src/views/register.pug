@@ -9,11 +9,11 @@ head
   link(rel='preconnect' href='https://fonts.googleapis.com')
   link(rel='preconnect' href='https://fonts.gstatic.com' crossorigin='')
   link(href='https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap' rel='stylesheet')
-  link(rel='stylesheet' href='css/login.css')
-  script(defer='' src='js/login.js')
-  title Login | Crema Blog
+  link(rel='stylesheet' href='css/register.css')
+  script(defer='' src='js/register.js')
+  title Register | Crema Blog
 nav.nav
-  a.nav__logo(href='/login')
+  a.nav__logo(href='./login.html')
     svg.nav__profile-photo(xmlns='http://www.w3.org/2000/svg' fill='none' viewbox='0 0 24 24' stroke-width='1.5' stroke='currentColor' width='24' height='24')
       path(stroke-linecap='round' stroke-linejoin='round' d='M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z')
   .nav__search
@@ -22,41 +22,36 @@ nav.nav
       svg.nav__search-icon(xmlns='http://www.w3.org/2000/svg' fill='none' viewbox='0 0 24 24' stroke-width='1.5' stroke='currentColor' width='24' height='24')
         path(stroke-linecap='round' stroke-linejoin='round' d='M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z')
   .nav__links
-    a.nav__link(href='/') Home
+    a.nav__link(href='index.html') Home
     a.nav__link(href='about.html') About
     a.nav__link(href='contact.html') Contact
 .content
   .content__container
     .content__container__left
-      h1.content__container__left__title Login
-      p.content__container__left__description
-        | Welcome back! Please login to your account.
-      form.content__container__left__form
-        .content__container__left__form__group
-          label.content__container__left__form__group__label(for='email') Email
-          input#email.content__container__left__form__group__input(type='email' name='email' placeholder='Enter your email' required='')
-        .content__container__left__form__group
-          label.content__container__left__form__group__label(for='password') Password
-          input#password.content__container__left__form__group__input(type='password' name='password' placeholder='Enter your password' required='')
-        .content__container__left__form__group
-          input#remember.content__container__left__form__group__checkbox(type='checkbox' name='remember')
-          label.content__container__left__form__group__label(for='remember') Remember me
-        .content__container__left__form__group
-          button.content__container__left__form__group__button(type='submit')
-            | Login
-      .content__container__left__footer
-        p.content__container__left__footer__text
-          | Don&apos;t have an account? 
-          a(href='/register') Register
+      .content__container__left__text
+        h1.content__container__left__text__title Register
+        p.content__container__left__text__description
+          | Register to create your own blog posts and share them with the world!
     .content__container__right
-      .content__container__right__container
-        h2.content__container__right__container__title Welcome
-        p.content__container__right__container__description
-          | Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptas,
-          | quae, quod, voluptates quibusdam voluptatibus necessitatibus quidem
-          | voluptatum quos accusantium quia. Quisquam voluptas, quae, quod, voluptates
-          | quibusdam voluptatibus necessitatibus quidem voluptatum quos accusantium
-          | quia.
+      form.content__container__right__form
+        .content__container__right__form__group
+          label.content__container__right__form__group__label
+            | Username
+          input.content__container__right__form__group__input(type='text' placeholder='Username' aria-label='Username')
+        .content__container__right__form__group
+          label.content__container__right__form__group__label  Email 
+          input.content__container__right__form__group__input(type='email' placeholder='Email' aria-label='Email')
+        .content__container__right__form__group
+          label.content__container__right__form__group__label
+            | Password
+          input.content__container__right__form__group__input(type='password' placeholder='Password' aria-label='Password')
+        .content__container__right__form__group
+          label.content__container__right__form__group__label
+            | Confirm Password
+          input.content__container__right__form__group__input(type='password' placeholder='Confirm Password' aria-label='Confirm Password')
+        .content__container__right__form__group
+          button.content__container__right__form__group__button(type='submit')
+            | Register
 footer.footer
   .footer__content
     .footer__social
@@ -72,29 +67,35 @@ footer.footer
     p.footer__text Made with &hearts; by Ubeyde Emir &Ouml;zdemir
 script.
   async function sendData(data) {
-    const response = await fetch('/api/v1/users/login', {
+    const response = await fetch('/api/v1/users/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(data)
     });
-
-    if (response.ok) {
-      location.assign('/');
-    }
+    //- return response.json();
   }
-  /* Add your scripts here */
-  document.querySelector('form.content__container__left__form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    const email = document.querySelector('input[name="email"]').value;
-    const password = document.querySelector('input[name="password"]').value;
-    //- const remember = document.querySelector('input[name="remember"]').checked;
-    const data = {
-      email,
-      password,
-      //- remember
-    };
 
-    sendData(data);
+  document.querySelector('form').addEventListener('submit', function (e) {
+    e.preventDefault()
+    const name = document.querySelector('input[aria-label="Username"]').value
+    const email = document.querySelector('input[type="email"]').value;
+    const password = document.querySelector('input[type="password"]').value;
+    const confirmPassword = document.querySelector('input[aria-label="Confirm Password"]').value;
+    if (password !== confirmPassword) {
+      alert('Passwords do not match');
+      return;
+    }
+
+    const data = {
+      name,
+      email,
+      password
+    }
+
+    sendData(data).then((data) => {
+      alert('User created successfully');
+      window.location.href = '/login';
+    });
   });
