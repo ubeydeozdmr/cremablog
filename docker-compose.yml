@@ -1,0 +1,40 @@
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - '3000:3000'
+    depends_on:
+      - backend
+    networks:
+      - mynetwork
+    env_file:
+      - ./frontend/.env
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - '5000:5000'
+    depends_on:
+      - mongo
+    networks:
+      - mynetwork
+    env_file:
+      - ./backend/.env.production
+
+  mongo:
+    image: mongo:6
+    restart: always
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+
+volumes:
+  mongo_data:

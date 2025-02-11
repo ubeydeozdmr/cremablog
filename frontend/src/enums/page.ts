@@ -1,0 +1,16 @@
+export enum Page {
+  Home = '/',
+  Posts = '/posts',
+  Post = '/posts/:slug',
+  EditPost = '/posts/:slug/edit',
+  DeletePost = '/posts/:slug/delete',
+  AddPost = '/posts/add',
+  Profile = '/profile',
+  Settings = '/settings',
+  DeleteAccount = '/delete-account',
+  Signup = '/signup',
+  Login = '/login',
+  Logout = '/logout',
+  Welcome = '/welcome',
+  NotFound = '*',
+}

@@ -1,0 +1,14 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-display: 'Rubik', 'sans-serif';
+  --font-title: 'Plus Jakarta Sans', 'Rubik', 'sans-serif';
+  --text-xxs: 0.625rem;
+}
+
+*::selection {
+  background-color: theme('colors.orange.500');
+  color: var(--color-white);
+}

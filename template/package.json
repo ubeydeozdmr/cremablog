@@ -1,0 +1,19 @@
+{
+  "name": "cremablog-template",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Template for the CremaBlog project",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.0.5"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.0.2",
+    "tailwindcss": "^4.0.2"
+  }
+}

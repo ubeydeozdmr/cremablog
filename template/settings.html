@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en" class="dark:[color-scheme:dark]">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+      rel="stylesheet"
+    />
+    <link href="style.css" rel="stylesheet" />
+    <title>Settings | CremaBlog</title>
+  </head>
+  <body
+    class="font-display bg-orange-50 text-gray-900 dark:bg-gray-900 dark:text-gray-50"
+  >
+    <header class="flex p-5 justify-between items-center">
+      <div class="flex-1">
+        <nav class="hidden md:flex gap-10">
+          <a
+            href="/"
+            class="text-gray-500 hover:text-gray-900 uppercase leading-10 font-semibold transition-colors duration-300 dark:text-gray-50 dark:hover:text-gray-100 dark:border-gray-500"
+          >
+            Home
+          </a>
+          <a
+            href="/posts"
+            class="text-gray-500 hover:text-gray-900 uppercase leading-10 font-semibold transition-colors duration-300 dark:text-gray-50 dark:hover:text-gray-100 dark:border-gray-500"
+          >
+            All
+          </a>
+        </nav>
+        <button
+          id="menu-button"
+          class="block md:hidden cursor-pointer"
+          onclick="toggleMenu()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 text-gray-500 dark:text-gray-50"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16m-7 6h7"
+            />
+          </svg>
+        </button>
+        <div
+          id="menu-overlay"
+          class="fixed top-0 left-0 z-10 w-full h-full bg-gray-900 opacity-50 hidden"
+          onclick="toggleMenu()"
+        ></div>
+        <aside
+          id="menu"
+          class="absolute top-0 left-0 z-100 bg-white text-gray-900 rounded-tr-md rounded-br-md h-full min-w-60 p-3 text-md shadow-md hidden dark:bg-gray-800 dark:text-gray-50"
+        >
+          <button
+            id="close-menu"
+            class="absolute top-0 right-0 p-3 cursor-pointer"
+            onclick="toggleMenu()"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 text-gray-900 dark:text-gray-50"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+          <ul class="flex flex-col gap-2">
+            <li>
+              <a
+                href="/"
+                class="text-gray-900 hover:text-orange-500 transition-colors duration-300 dark:text-gray-50 dark:hover:text-orange-500"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                href="/posts"
+                class="text-gray-900 hover:text-orange-500 transition-colors duration-300 dark:text-gray-50 dark:hover:text-orange-500"
+                >All Posts</a
+              >
+            </li>
+          </ul>
+        </aside>
+      </div>
+      <div class="flex-2 md:flex-1 flex justify-center">
+        <input
+          type="text"
+          name="search"
+          placeholder="Search"
+          class="rounded-full p-2 bg-orange-100 text-gray-900 font-semibold w-full sm:w-80 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:text-gray-50"
+        />
+      </div>
+      <div class="flex-1 flex justify-end gap-5 relative">
+        <button
+          href="#"
+          id="user-circle"
+          class="rounded-full p-1 aspect-square bg-orange-500 text-orange-50 font-semibold hover:bg-orange-600 w-10 align-middle cursor-pointer transition-colors duration-300 dark:bg-gray-800 dark:text-gray-50 dark:hover:bg-gray-700"
+        >
+          C
+        </button>
+        <div
+          class="absolute top-0 right-0 bg-white text-orange-500 rounded-full px-1 text-xxs aspect-square w-3 h-3 flex justify-center items-center select-none shadow-md dark:bg-gray-800 dark:text-gray-50"
+        >
+          9
+        </div>
+        <div
+          id="user-menu"
+          class="absolute -bottom-40 right-0 bg-white text-gray-900 rounded-md p-3 text-md shadow-md hidden dark:bg-gray-800 dark:text-gray-50"
+        >
+          <ul class="flex flex-col gap-2">
+            <li class="flex flex-row items-center gap-2">
+              <p class="size-max">Dark mode</p>
+
+              <label
+                for="dark-mode"
+                class="flex items-center cursor-pointer select-none"
+              >
+                <input
+                  type="checkbox"
+                  id="dark-mode"
+                  class="hidden"
+                  onchange="toggleDarkMode()"
+                />
+                <span
+                  class="rounded-full w-10 h-5 bg-gray-300 flex items-center p-1"
+                >
+                  <span
+                    id="dark-mode-circle"
+                    class="rounded-full w-3 h-3 bg-gray-900"
+                  ></span>
+                </span>
+              </label>
+            </li>
+            <li>
+              <a
+                href="/profile"
+                class="text-gray-900 hover:text-orange-500 transition-colors duration-300 dark:text-gray-50 dark:hover:text-orange-500"
+                >Profile</a
+              >
+            </li>
+            <li>
+              <a
+                href="/settings"
+                class="text-gray-900 hover:text-orange-500 transition-colors duration-300 dark:text-gray-50 dark:hover:text-orange-500"
+                >Settings</a
+              >
+            </li>
+            <li>
+              <a
+                href="/logout"
+                class="text-gray-900 hover:text-orange-500 transition-colors duration-300 dark:text-gray-50 dark:hover:text-orange-500"
+                >Logout</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <div class="container px-5 mx-auto max-w-7xl">
+      <button
+        id="back-button"
+        onclick="history.back()"
+        class="text-orange-500 hover:text-orange-900 cursor-pointer flex items-center gap-2 translate-y-5 transition-colors duration-300"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="size-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
+          />
+        </svg>
+        Back
+      </button>
+      <h1
+        class="font-title text-4xl sm:text-6xl md:text-8xl font-bold py-5 md:py-10 tracking-tighter text-gray-900 dark:text-gray-50"
+      >
+        Settings
+      </h1>
+      <h2 class="text-2xl font-semibold mt-5">Theme</h2>
+      <div class="flex flex-row gap-5 mt-5">
+        <label class="flex items-center gap-2">
+          <input
+            type="radio"
+            name="theme"
+            value="light"
+            class="hidden peer"
+            id="theme-light"
+            onclick="setToLightMode()"
+          />
+          <span class="icon" data-theme="light">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6 checked-icon text-orange-500"
+              id="theme-light-checked"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6 unchecked-icon hidden"
+              id="theme-light-unchecked"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 2.25a9 9 0 1 0 0 18 9 9 0 0 0 0-18z"
+              />
+            </svg>
+          </span>
+          <span class="text-lg font-semibold text-gray-900 dark:text-gray-50"
+            >Light</span
+          >
+        </label>
+        <label class="flex items-center gap-2">
+          <input
+            type="radio"
+            name="theme"
+            value="dark"
+            class="hidden peer"
+            id="theme-dark"
+            onclick="setToDarkMode()"
+          />
+          <span class="icon" data-theme="dark">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6 checked-icon text-orange-500"
+              id="theme-dark-checked"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6 unchecked-icon hidden"
+              id="theme-dark-unchecked"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 2.25a9 9 0 1 0 0 18 9 9 0 0 0 0-18z"
+              />
+            </svg>
+          </span>
+          <span class="text-lg font-semibold text-gray-900 dark:text-gray-50"
+            >Dark</span
+          >
+        </label>
+        <label class="flex items-center gap-2">
+          <input
+            type="radio"
+            name="theme"
+            value="system"
+            class="hidden peer"
+            id="theme-system"
+            onclick="setToSystemMode()"
+          />
+          <span class="icon" data-theme="system">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6 checked-icon text-orange-500"
+              id="theme-system-checked"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6 unchecked-icon hidden"
+              id="theme-system-unchecked"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 2.25a9 9 0 1 0 0 18 9 9 0 0 0 0-18z"
+              />
+            </svg>
+          </span>
+          <span class="text-lg font-semibold text-gray-900 dark:text-gray-50"
+            >System</span
+          >
+        </label>
+      </div>
+      <h2 class="text-2xl font-semibold mt-5">Change Password</h2>
+      <form class="flex flex-col gap-5 mt-5">
+        <div class="flex flex-col gap-2">
+          <label for="current-password" class="text-lg font-semibold">
+            Current Password
+          </label>
+          <input
+            type="password"
+            id="current-password"
+            name="current-password"
+            class="rounded-md p-2 bg-orange-100 text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:text-gray-50"
+          />
+        </div>
+        <div class="flex flex-col gap-2">
+          <label for="new-password" class="text-lg font-semibold">
+            New Password
+          </label>
+          <input
+            type="password"
+            id="new-password"
+            name="new-password"
+            class="rounded-md p-2 bg-orange-100 text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:text-gray-50"
+          />
+        </div>
+        <div class="flex flex-col gap-2">
+          <label for="confirm-password" class="text-lg font-semibold">
+            Confirm Password
+          </label>
+          <input
+            type="password"
+            id="confirm-password"
+            name="confirm-password"
+            class="rounded-md p-2 bg-orange-100 text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:text-gray-50"
+          />
+        </div>
+        <button
+          type="submit"
+          class="bg-orange-500 hover:bg-orange-600 text-orange-50 px-5 py-3 rounded-full font-semibold transition-colors duration-300 cursor-pointer w-full max-w-xs text-center dark:bg-gray-800 dark:text-gray-50 dark:hover:bg-gray-700"
+        >
+          Save
+        </button>
+      </form>
+      <h2 class="text-2xl font-semibold mt-5">Change Email</h2>
+      <form class="flex flex-col gap-5 mt-5">
+        <!-- <div class="flex flex-col gap-2">
+          <label for="current-email" class="text-lg font-semibold">
+            Current Email
+          </label>
+          <input
+            type="email"
+            id="current-email"
+            name="current-email"
+            class="rounded-md p-2 bg-orange-100 text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:text-gray-50"
+          />
+        </div> -->
+        <div class="flex flex-col gap-2">
+          <label for="current-email-password" class="text-lg font-semibold">
+            Current Password
+          </label>
+          <input
+            type="password"
+            id="current-email-password"
+            name="current-email-password"
+            class="rounded-md p-2 bg-orange-100 text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:text-gray-50"
+          />
+        </div>
+        <div class="flex flex-col gap-2">
+          <label for="new-email" class="text-lg font-semibold">New Email</label>
+          <input
+            type="email"
+            id="new-email"
+            name="new-email"
+            class="rounded-md p-2 bg-orange-100 text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:text-gray-50"
+          />
+        </div>
+        <div class="flex flex-col gap-2">
+          <label for="confirm-email" class="text-lg font-semibold">
+            Confirm Email
+          </label>
+          <input
+            type="email"
+            id="confirm-email"
+            name="confirm-email"
+            class="rounded-md p-2 bg-orange-100 text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:text-gray-50"
+          />
+        </div>
+        <button
+          type="submit"
+          class="bg-orange-500 hover:bg-orange-600 text-orange-50 px-5 py-3 rounded-full font-semibold transition-colors duration-300 cursor-pointer w-full max-w-xs text-center dark:bg-gray-800 dark:text-gray-50 dark:hover:bg-gray-700"
+        >
+          Save
+        </button>
+      </form>
+      <h2 class="text-2xl font-semibold mt-5">Delete Account</h2>
+      <form class="flex flex-col gap-5 mt-5">
+        <div class="flex flex-col gap-2">
+          <label for="delete-password" class="text-lg font-semibold">
+            Password
+          </label>
+          <input
+            type="password"
+            id="delete-password"
+            name="delete-password"
+            class="rounded-md p-2 bg-orange-100 text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:text-gray-50"
+          />
+        </div>
+        <button
+          type="submit"
+          class="bg-red-500 hover:bg-red-600 text-red-50 px-5 py-3 rounded-full font-semibold transition-colors duration-300 cursor-pointer w-full max-w-xs text-center dark:bg-gray-800 dark:text-red-500 dark:hover:bg-gray-700"
+        >
+          Delete Account
+        </button>
+      </form>
+    </div>
+    <footer class="flex justify-center items-center px-5 py-10 sm:py-20">
+      <p class="text-gray-500 text-center dark:text-gray-300">
+        &copy; 2025 CremaBlog. All rights reserved.
+      </p>
+    </footer>
+    <script src="script.js"></script>
+    <script>
+      function updateIcons() {
+        document.querySelectorAll('.icon').forEach((icon) => {
+          const input = document.querySelector(
+            `input[name="theme"][value="${icon.dataset.theme}"]`,
+          );
+          const checkedIcon = icon.querySelector('.checked-icon');
+          const uncheckedIcon = icon.querySelector('.unchecked-icon');
+
+          if (input.checked) {
+            checkedIcon.classList.remove('hidden');
+            uncheckedIcon.classList.add('hidden');
+          } else {
+            checkedIcon.classList.add('hidden');
+            uncheckedIcon.classList.remove('hidden');
+          }
+        });
+      }
+
+      document.querySelectorAll('input[name="theme"]').forEach((radio) => {
+        radio.addEventListener('change', updateIcons);
+      });
+
+      updateIcons();
+    </script>
+    <script>
+      function setToLightMode() {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('currentTheme', 'light');
+        document.getElementById('theme-light').checked = true;
+        document
+          .getElementById('theme-light-checked')
+          .classList.remove('hidden');
+        document
+          .getElementById('theme-light-unchecked')
+          .classList.add('hidden');
+      }
+
+      function setToDarkMode() {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('currentTheme', 'dark');
+        document.getElementById('theme-dark').checked = true;
+        document
+          .getElementById('theme-dark-checked')
+          .classList.remove('hidden');
+        document.getElementById('theme-dark-unchecked').classList.add('hidden');
+      }
+
+      function setToSystemMode() {
+        document.documentElement.classList.toggle(
+          'dark',
+          window.matchMedia('(prefers-color-scheme: dark)').matches,
+        );
+        localStorage.removeItem('currentTheme');
+        document.getElementById('theme-system').checked = true;
+        document
+          .getElementById('theme-system-checked')
+          .classList.remove('hidden');
+        document
+          .getElementById('theme-system-unchecked')
+          .classList.add('hidden');
+      }
+
+      function setTheme() {
+        switch (localStorage.currentTheme) {
+          case 'light':
+            setToLightMode();
+            break;
+          case 'dark':
+            setToDarkMode();
+            break;
+          default:
+            setToSystemMode();
+            break;
+        }
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        setTheme();
+      });
+    </script>
+  </body>
+</html>
