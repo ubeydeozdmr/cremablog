@@ -1,10 +1,7 @@
 import { type NextFunction, type Request, type Response } from 'express';
-import jwt from 'jsonwebtoken';
 
-import { jwtExpiresIn, jwtSecret } from '../config/env';
 import User from '../models/User';
 import { AppError } from '../utils/error';
-import { comparePassword, hashPassword } from '../utils/hash';
 
 export const readUsers = async (
   req: Request,
