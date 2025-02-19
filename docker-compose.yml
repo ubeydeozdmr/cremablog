@@ -1,20 +1,14 @@
 name: cremablog
 
 services:
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    env_file: ./frontend/.env
+  mongo:
+    image: mongo:7
+    ports:
+      - '27017:27017'
     volumes:
-      - ./frontend:/app
-      - /app/node_modules
+      - mongo_data:/data/db
     networks:
       - cremablog
-    command: npm run dev -- --host
-    depends_on:
-      - api
 
   api:
     build:
@@ -30,14 +24,20 @@ services:
     depends_on:
       - mongo
 
-  mongo:
-    image: mongo:7
-    ports:
-      - '27017:27017'
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: ./frontend/.env
     volumes:
-      - mongo_data:/data/db
+      - ./frontend:/app
+      - /app/node_modules
     networks:
       - cremablog
+    command: npm run dev -- --host
+    depends_on:
+      - api
 
   caddy:
     image: caddy:2-alpine
