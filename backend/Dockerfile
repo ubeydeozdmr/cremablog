@@ -1,6 +1,5 @@
 # Development stage
-# FROM node:22-bookworm-slim AS development
-FROM node:22-bookworm-slim
+FROM node:22-bookworm-slim AS development
 
 WORKDIR /app
 
@@ -10,19 +9,19 @@ RUN npm ci
 
 COPY . .
 
-# RUN npm run build
+RUN npm run build
 
 CMD ["npm", "run", "dev"]
 
 # Production stage
-# FROM node:22-bookworm-slim AS production
+FROM node:22-bookworm-slim AS production
 
-# WORKDIR /app
+WORKDIR /app
 
-# COPY package*.json ./
+COPY package*.json ./
 
-# RUN npm ci --only=production
+RUN npm ci --only=production
 
-# COPY --from=development /app/dist ./dist
+COPY --from=development /app/dist ./dist
 
-# CMD ["node", "dist/server.js"]
+CMD ["node", "dist/server.js"]
