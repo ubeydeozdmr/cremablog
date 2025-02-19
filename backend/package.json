@@ -4,9 +4,9 @@
   "description": "Backend side of the CremaBlog project",
   "main": "dist/server.js",
   "scripts": {
-    "build": "tsc",
+    "build": "rimraf dist && tsc",
     "start": "node dist/server.js",
-    "dev": "ts-node-dev src/server.ts"
+    "dev": "ts-node-dev --poll --files src/server.ts"
   },
   "keywords": [
     "blog"
@@ -19,7 +19,6 @@
     "dompurify": "^3.2.3",
     "dotenv": "^16.4.7",
     "express": "^5.0.1",
-    "express-rate-limit": "^7.5.0",
     "jsdom": "^26.0.0",
     "jsonwebtoken": "^9.0.2",
     "marked": "^15.0.6",
@@ -35,6 +34,7 @@
     "@types/jsonwebtoken": "^9.0.8",
     "@types/marked": "^5.0.2",
     "@types/node": "^22.12.0",
+    "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.7.3"

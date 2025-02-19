@@ -1,0 +1,12 @@
+{
+	local_certs
+}
+
+cremablog.localhost {
+	encode gzip
+	reverse_proxy frontend:5173
+}
+
+api.cremablog.localhost {
+	reverse_proxy api:5000
+}
