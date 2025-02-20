@@ -1,16 +1,21 @@
-FROM node:22-alpine
+# Development stage
+FROM node:22-bookworm-slim AS development
 
 WORKDIR /app
 
-COPY package*.json ./ 
-RUN npm install 
+COPY package*.json ./
 
-COPY . . 
+RUN npm ci
 
-RUN npm run build 
+COPY . .
 
-ENV NODE_ENV=production
-ENV PORT=3000
+ARG VITE_API_URL
 
-RUN npm install -g serve
-CMD ["serve", "-s", "dist", "-l", "3000"]
+RUN VITE_API_URL=${VITE_API_URL} npm run build
+
+# Production stage
+FROM caddy:2-alpine AS production
+
+COPY Caddyfile /etc/caddy/Caddyfile
+
+COPY --from=development /app/dist /srv

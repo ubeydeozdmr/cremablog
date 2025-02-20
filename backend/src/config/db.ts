@@ -6,6 +6,7 @@ const connectDB = async () => {
     if (!mongodbUri) {
       throw new Error('MongoDB URI is required');
     }
+    console.log('Connecting to MongoDB...');
     const conn = await mongoose.connect(mongodbUri);
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error: unknown) {

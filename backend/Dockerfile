@@ -1,23 +1,27 @@
-FROM node:22-alpine as builder
+# Development stage
+FROM node:22-bookworm-slim AS development
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-RUN npm install --omit=dev
+COPY package*.json ./
+
+RUN npm ci
 
 COPY . .
 
 RUN npm run build
 
-FROM node:22-alpine
+CMD ["npm", "run", "dev"]
+
+# Production stage
+FROM node:22-bookworm-slim AS production
 
 WORKDIR /app
 
-COPY --from=builder /app /app
+COPY package*.json ./
 
-COPY .env.production /app/.env
+RUN npm ci --only=production
 
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
+COPY --from=development /app/dist ./dist
 
 CMD ["node", "dist/server.js"]
